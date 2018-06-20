@@ -12,6 +12,11 @@ public class ScheduleUtil {
      * @return
      */
     public static int getLeastConsumptionNode(Map<Node,List<Task>>seviceTasks){
+         //任务还未分配到服务器
+        if (seviceTasks.isEmpty()){
+
+            return -1;
+        }
 
         List<NodeConsumption> consumptions =new ArrayList<NodeConsumption>();//将每个服务器上的消耗率总值存进来
         //遍历服务器任务map

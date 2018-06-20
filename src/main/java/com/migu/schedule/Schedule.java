@@ -7,10 +7,7 @@ import com.migu.schedule.info.ScheduleUtil;
 import com.migu.schedule.info.Task;
 import com.migu.schedule.info.TaskInfo;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
@@ -135,6 +132,19 @@ public class Schedule {
 
 
                  int nodeId= ScheduleUtil.getLeastConsumptionNode(serviceTasks);//找到最小消耗率的服务器id
+
+                 if (nodeId==-1){//服务器上暂时没有任务
+
+                     for(Map.Entry<Integer,Node> ent:serviceNode.entrySet()){
+
+                         Node node=(Node)ent.getValue();
+                         List<Task> tks=new ArrayList<Task>();
+                         tks.add(entry.getValue());
+                         serviceTasks.put(node,tks);
+                         break;
+                     }
+
+                 }
                  Node node=new Node(nodeId,"服务器："+nodeId);
                  List<Task> tasks=serviceTasks.get(node);//当前服务器上运行的task
                  tasks.add(entry.getValue());//添加task到该服务器的tasks里面
